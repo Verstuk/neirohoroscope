@@ -1,0 +1,130 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Pacifico&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #072C35; 
+  --foreground: #E5FCFF;
+
+  --card: #072C35;
+  --card-foreground: #E5FCFF;
+
+  --popover: #072C35;
+  --popover-foreground: #E5FCFF;
+
+  --primary: #F8D64D;
+  --primary-foreground: #072C35;
+
+  --secondary: #75F1FF;
+  --secondary-foreground: #072C35;
+
+  --muted: #0C4A59;
+  --muted-foreground: #B2F7FF;
+
+  --accent:#75F1FF;
+  --accent-foreground: #072C35;
+
+  --destructive: #EE4343;
+  --destructive-foreground: #E5FCFF;
+
+  --border: #75F1FF;
+  --input: #0C4A59;
+  --ring: #75F1FF;
+
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: 192 76% 12%;
+  --foreground: 186 100% 95%;
+}
+
+body {
+  @apply bg-background text-foreground;
+  font-family: "Fira Sans", sans-serif;
+}
+
+/* h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Pacifico", cursive;
+} */
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(5, 46, 54, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(126, 238, 255, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(126, 238, 255, 0.5);
+}
+
+/* Hexagon shape */
+.hexagon {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+/* Animation classes */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Glow effects */
+.text-glow {
+  text-shadow: 0 0 5px rgba(248, 214, 78, 0.5);
+}
+
+.box-glow {
+  box-shadow: 0 0 15px rgba(126, 238, 255, 0.2);
+}
+
