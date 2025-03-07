@@ -99,7 +99,7 @@ export function HoroscopeResult({ horoscope, sign, period }: HoroscopeResultProp
         />
       </svg>
 
-      <div className="flex justify-between items-center mb-6 relative z-10">
+      <div className="flex justify-between items-center mb-6 relative z-9999">
         <div>
           <h2 className="text-3xl font-serif text-[#f8d64e] flex items-center gap-2 drop-shadow-[0_0_5px_rgba(248,214,78,0.5)]">
             <span>{zodiacSymbol}</span> {russianSign}
