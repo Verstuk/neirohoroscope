@@ -1,12 +1,18 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Calendar } from "@/components/ui/calendar"
 import { Label } from "@/components/ui/label"
 import { getZodiacSign, zodiacSigns } from "@/lib/zodiac"
 import { motion } from "framer-motion"
 import { ru } from "date-fns/locale"
-
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 interface DatePickerProps {
   onSelect: (date: Date | null) => void
   selected: Date | null
@@ -14,13 +20,29 @@ interface DatePickerProps {
 
 export function DatePicker({ onSelect, selected }: DatePickerProps) {
   const [date, setDate] = useState<Date | null>(selected)
+  const [currentMonth, setCurrentMonth] = useState<Date>(selected || new Date())
   const zodiacSign = date ? getZodiacSign(date) : null
 
+   // Синхронизация с внешними изменениями selected
+   useEffect(() => {
+    if (selected) {
+      setDate(selected)
+      setCurrentMonth(selected)
+    }
+  }, [selected])
+
+  // Генерируем список годов (от текущего -100 до +10)
+  const years = Array.from({ length: 111 }, (_, i) => new Date().getFullYear() - 100 + i)
+
   const handleSelect = (date: Date | undefined) => {
-    const dateToUse = date ?? null;
-    setDate(dateToUse);
-    onSelect(dateToUse);
-  };
+    const dateToUse = date ?? null
+    setDate(dateToUse)
+    onSelect(dateToUse)
+    if (dateToUse) {
+      setCurrentMonth(dateToUse)
+    }
+  }
+
   return (
     <motion.div
       className="space-y-4"
@@ -31,6 +53,33 @@ export function DatePicker({ onSelect, selected }: DatePickerProps) {
       <div>
         <Label className="text-lg font-medium text-[#7eeeff]">Ваша Дата Рождения</Label>
         <p className="text-sm text-[#7eeeff]/70 mb-2">Выберите дату рождения, чтобы определить ваш знак зодиака</p>
+        
+        <div className="mb-4">
+          <Select
+            value={currentMonth.getFullYear().toString()}
+            onValueChange={(value) => {
+              const year = parseInt(value)
+              const newDate = new Date(currentMonth)
+              newDate.setFullYear(year)
+              setCurrentMonth(newDate)
+            }}
+          >
+            <SelectTrigger className="w-[180px] bg-[#052e36]/60 border border-[#7eeeff]/20 text-[#7eeeff]">
+              <SelectValue placeholder="Выберите год" />
+            </SelectTrigger>
+            <SelectContent className="bg-[#052e36] border border-[#7eeeff]/20">
+              {years.map((year) => (
+                <SelectItem 
+                  key={year} 
+                  value={year.toString()}
+                  className="hover:bg-[#0a4b5c] focus:bg-[#0a4b5c] text-[#7eeeff]"
+                >
+                  {year}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       <div className="flex flex-col md:flex-row gap-6">
@@ -41,6 +90,8 @@ export function DatePicker({ onSelect, selected }: DatePickerProps) {
             onSelect={handleSelect}
             locale={ru}
             className="bg-transparent"
+            month={currentMonth}
+            onMonthChange={setCurrentMonth}
             classNames={{
               day_selected: "bg-[#f8d64e] text-[#052e36]",
               day_today: "bg-[#7eeeff]/20 text-[#7eeeff]",
