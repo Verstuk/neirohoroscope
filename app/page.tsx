@@ -92,10 +92,10 @@ export default function Home() {
           >
             <TabsList className="grid w-full grid-cols-2 mb-6 bg-[#052e36]/80 border border-[#7eeeff]/20">
               <TabsTrigger value="sign" className="data-[state=active]:bg-[#0a4b5c] data-[state=active]:text-[#f8d64e]">
-                Выбрать Знак Зодиака
+                По Знаку Зодиака
               </TabsTrigger>
               <TabsTrigger value="date" className="data-[state=active]:bg-[#0a4b5c] data-[state=active]:text-[#f8d64e]">
-                Ввести Дату Рождения
+                По Дате Рождения
               </TabsTrigger>
             </TabsList>
             <TabsContent value="sign" className="mt-4">
@@ -146,7 +146,7 @@ export default function Home() {
               </>
             ) : (
               <>
-                <Sparkles className="mr-2 h-4 w-4" /> Раскрыть Вашу Космическую Судьбу
+                <Sparkles className="mr-2 h-4 w-4" /> Раскрыть Вашу Судьбу
               </>
             )}
           </Button>
